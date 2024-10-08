@@ -152,7 +152,7 @@ namespace Individuellt_Projekt
                                 accounts[0] = accounts[0] - 1 - 1000;
                                 accounts[1] = accounts[1] + 1000;
                                 Console.WriteLine("Skriv hur mycket du skulle vilja ta ut:");
-                                string accounts1 = Console.ReadLine();
+                                string accounts1 = Console.ReadLine(); // Det är här det buggar///////////////////////////////////
                                 Console.WriteLine("");
                                 Console.WriteLine("\nTryck enter för att återgå till huvudmenyn");
                                 break;
@@ -183,11 +183,8 @@ namespace Individuellt_Projekt
             }
         }
 
-        private static void TransferMoney(int fromUserAccount, int toUserAccount, decimal transferAmount, double[] accounts)
-        {
-            throw new NotImplementedException();
-        }
-
+      
+   
         static double[] getaccount(string userName)
         {
             switch (userName)
@@ -259,11 +256,20 @@ namespace Individuellt_Projekt
                 {
                     Console.WriteLine("Otillräckligt saldo för överföring");
                 }
+
+               
             }
             else
             {
                 Console.WriteLine("Ogiltiga kontonummer");
             }
+
+
+
+             static void Widraw()
+             {
+
+             }
         }
     }
         
