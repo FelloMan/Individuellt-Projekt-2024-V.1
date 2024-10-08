@@ -42,14 +42,14 @@ namespace Individuellt_Projekt
             bool isLoggedIn = false;
 
 
-            //Fixa login 
+            //Fixa login [Klar]
             //Fixa moneytransfer
-
+            //Fixa så man återvänder till huvudmenyn efter att man loggar ut
 
             while (failedLoginAttempts < loginAttempts)
             {
 
-                Console.WriteLine("Inlogningsmeny");
+                Console.WriteLine("Inloggningsmeny");
                 Console.WriteLine("---------------------------------");
                 Console.WriteLine("Skriv in ett ditt användarnam");
                 userName = Console.ReadLine();
@@ -62,10 +62,100 @@ namespace Individuellt_Projekt
                 {
                     Console.Clear();
                     Console.WriteLine("Du är inloggad!");
-                    Console.WriteLine("Hej och välkommen till din kontomeny");
+                   
                     failedLoginAttempts = 0;
                     isLoggedIn = true;
-                    
+                    accounts = getaccount(userName);
+
+
+                    bool since = true;
+                    while (since)
+                    {
+                        Console.Clear();
+                        int mainAccount;
+                        Console.WriteLine("");                      
+                        Console.WriteLine(" Skriv in en siffra till den del av kontot du vill till ");
+                        Console.WriteLine("-----------------------------");
+                        Console.WriteLine("1. Se dina konton och saldo ");
+                        Console.WriteLine("2. Överföring mellan konton ");
+                        Console.WriteLine("3. Ta ut pengar ");
+                        Console.WriteLine("4. Logga ut ");
+                        Console.WriteLine();
+
+
+                        mainAccount = Convert.ToInt32(Console.ReadLine());
+                        Console.Clear();
+                        // int num = int.Parse(Console.ReadLine()); //skriv alternativ
+                        switch (mainAccount)
+
+                        {
+
+
+                            case 1:
+
+                                Console.WriteLine("Saldo på lönekonto:");
+                                Console.WriteLine(accounts[0]);
+                                Console.WriteLine("Saldo på sparkonto: ");
+                                Console.WriteLine(accounts[1]);
+                                Console.WriteLine("Saldo på semesterkonto: ");
+                                Console.WriteLine(accounts[2]);
+                                Console.WriteLine("");
+                                Console.WriteLine("Tryck på enter för att återgå till huvudmenyn");
+                                break;
+
+                            case 2:
+                                Console.WriteLine("Överföring mellan konton");
+                                Console.WriteLine("Välj ett konto att överföra från (1-3):");
+                                int fromUserAccount = int.Parse(Console.ReadLine()) - 1;
+                                Console.WriteLine("Välj ett konto att överföra till (1-3):");
+                                int toUserAccount = int.Parse(Console.ReadLine()) - 1;
+                                Console.WriteLine("Ange ett belopp att överföra:");
+
+
+                                if (decimal.TryParse(Console.ReadLine(), out decimal transferAmount))
+                                {
+                                    TransferMoney(fromUserAccount, toUserAccount, transferAmount, accounts);
+
+                                    Console.WriteLine("\nNytt Saldo");
+                                    for (int i = 0; i < accounts.Length; i++)
+                                    {
+                                        Console.WriteLine($"Konto {i + 1}: {accounts[i]} kr");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Ogiltigt belopp angivet.");
+                                }
+                                Console.WriteLine("\nTryck enter för att återgå till huvudmenyn");
+                                break;
+
+                            case 3:
+                                Console.WriteLine("Ta ut pengar");
+                                accounts[0] = accounts[0] - 1 - 10000;
+                                accounts[1] = accounts[1] + 1 - 10000;
+                                accounts[0] = accounts[0] - 1 - 1000;
+                                accounts[1] = accounts[1] + 1000;
+                                Console.WriteLine("Skriv hur mycket du skulle vilja ta ut:");
+                                string accounts1 = Console.ReadLine();
+                                Console.WriteLine("");
+                                Console.WriteLine(" Tryck på enter för att återgå till huvudmenyn");
+                                break;
+
+                            case 4:
+                                Console.WriteLine("Loggar ut! Välkommen åter");
+                                
+                                break;
+
+                            default:
+                                Console.WriteLine("Ogiltig svar, försök igen");
+                                since = false;
+                                continue;
+
+                        }
+                        Console.WriteLine();
+                        Console.ReadKey();
+                    }
+
                 }
                 else
                 {
@@ -74,114 +164,10 @@ namespace Individuellt_Projekt
                 }
 
 
-                if (isLoggedIn)
-                {
-                    Console.WriteLine("Välkommen till huvudmenyn");
-
-                }
-                else
-                {
-                    Console.WriteLine("För många fel! Programmet stängs!");
-
-                }
-
-
-                accounts = getaccount(userName);
-                bool since = false;
-                while (since)
-                {
-
-                    int mainAccount;
-                    Console.WriteLine("");
-                    Console.WriteLine(" Skriv in en siffra till den del av kontot du vill till ");
-                    Console.WriteLine("-----------------------------");
-                    Console.WriteLine("1. Se dina konton och saldo ");
-                    Console.WriteLine("2. Överföring mellan konton ");
-                    Console.WriteLine("3. Ta ut pengar ");
-                    Console.WriteLine("4. Logga ut ");
-                    Console.WriteLine();
-
-
-                    mainAccount = Convert.ToInt32(Console.ReadLine());
-                    Console.Clear();
-                    // int num = int.Parse(Console.ReadLine()); //skriv alternativ
-                    switch (mainAccount)
-
-                    {
-
-
-                        case 1:
-
-                            Console.WriteLine("Saldo på lönekonto:");
-                            Console.WriteLine(accounts[0]);
-                            Console.WriteLine("Saldo på sparkonto: ");
-                            Console.WriteLine(accounts[1]);
-                            Console.WriteLine("Saldo på semesterkonto: ");
-                            Console.WriteLine(accounts[2]);
-                            Console.WriteLine("");
-                            Console.WriteLine(" Tryck på enter för att återgå till huvudmenyn");
-                            break;
-
-                        case 2:
-                            Console.WriteLine("Överföring mellan konton");
-                            Console.WriteLine("Välj ett konto att överföra från (1-3):");
-                            int fromUserAccount = int.Parse(Console.ReadLine()) - 1;
-                            Console.WriteLine("Välj ett konto att överföra till (1-3):");
-                            int toUserAccount = int.Parse(Console.ReadLine()) - 1;
-                            Console.WriteLine("Ange ett belopp att överföra:");
-
-
-                            if (decimal.TryParse(Console.ReadLine(), out decimal transferAmount))
-                            {
-                                TransferMoney(fromUserAccount, toUserAccount, transferAmount, accounts);
-
-                                Console.WriteLine("\nNytt Saldo");
-                                for (int i = 0; i < accounts.Length; i++)
-                                {
-                                    Console.WriteLine($"Konto {i + 1}: {accounts[i]} kr");
-                                }
-                            }
-                            else
-                            {
-                                Console.WriteLine("Ogiltigt belopp angivet.");
-                            }
-                            Console.WriteLine("\nTryck enter för att återgå till huvudmenyn");
-                            break;
-
-                        case 3:
-                            Console.WriteLine("Ta ut pengar");
-                            accounts[0] = accounts[0] - 1 - 10000;
-                            accounts[1] = accounts[1] + 1 - 10000;
-                            accounts[0] = accounts[0] - 1 - 1000;
-                            accounts[1] = accounts[1] + 1000;
-                            Console.WriteLine("Skriv hur mycket du skulle vilja ta ut:");
-                            string accounts1 = Console.ReadLine();
-                            Console.WriteLine("");
-                            Console.WriteLine(" Tryck på enter för att återgå till huvudmenyn");
-                            break;
-
-                        case 4:
-                            Console.WriteLine("Logga ut");
-                            return;
-                            break;
-
-                        default:
-                            Console.WriteLine("Ogiltig svar, försök igen");
-                            since = false;
-                            continue;
-
-                    }
-                    Console.WriteLine();
-                    Console.ReadKey();
-                }
-
             }
         }
 
-        private static void TransferMoney(int fromUserAccount, int toUserAccount, decimal transferAmount, double[] accounts)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         static double[] getaccount(string userName)
         {
