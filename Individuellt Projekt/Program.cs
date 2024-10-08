@@ -34,8 +34,19 @@ namespace Individuellt_Projekt
             users[4, 0] = "Eva Hobert";
             users[4, 1] = "hemlis1234567";
             users[4, 2] = "19";
-
+ 
             string userName = "";
+
+
+            string[][] userAccounts =
+            {
+                new string [] {"Lönekonto, Sparkonto, Semesterkonto"},
+                new string [] {"Lönekonto, Sparkonto,"},
+                new string [] {"Lönekonto, Sparkonto, Semesterkonto"},
+                new string [] {"Lönekonto, Sparkonto"},
+                new string [] {"Lönekonto, Sparkonto, Semesterkonto"},
+            };
+
 
             int failedLoginAttempts = 0;
             const int loginAttempts = 3;
@@ -103,9 +114,15 @@ namespace Individuellt_Projekt
 
                             case 2:
                                 Console.WriteLine("Överföring mellan konton");
-                                Console.WriteLine("Välj ett konto att överföra från (1-3):");
+                                Console.WriteLine("Välj ett konto att överföra från (" +
+                                    "1.Lönekonto" +
+                                    "2.Sparkonto" +
+                                    "3.Semesterkonto):");
                                 int fromUserAccount = int.Parse(Console.ReadLine()) - 1;
-                                Console.WriteLine("Välj ett konto att överföra till (1-3):");
+                                Console.WriteLine("Välj ett konto att överföra från (" +
+                                    "1.Lönekonto" +
+                                    "2.Sparkonto" +
+                                    "3.Semesterkonto):");
                                 int toUserAccount = int.Parse(Console.ReadLine()) - 1;
                                 Console.WriteLine("Ange ett belopp att överföra:");
 
