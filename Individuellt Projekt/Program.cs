@@ -44,14 +44,14 @@ namespace Individuellt_Projekt
 
             //Fixa login [Klar]
             //Fixa moneytransfer
-            //Fixa så man återvänder till huvudmenyn efter att man loggar ut
+            //Fixa så man återvänder till huvudmenyn efter att man loggar ut [Klar]
 
             while (failedLoginAttempts < loginAttempts)
             {
 
                 Console.WriteLine("Inloggningsmeny");
                 Console.WriteLine("---------------------------------");
-                Console.WriteLine("Skriv in ett ditt användarnam");
+                Console.WriteLine("Skriv in ett ditt användarnamn");
                 userName = Console.ReadLine();
                 Console.WriteLine("---------------------------------");
                 Console.WriteLine("Skriv in ett ditt lösenord");
@@ -79,7 +79,8 @@ namespace Individuellt_Projekt
                         Console.WriteLine("1. Se dina konton och saldo ");
                         Console.WriteLine("2. Överföring mellan konton ");
                         Console.WriteLine("3. Ta ut pengar ");
-                        Console.WriteLine("4. Logga ut ");
+                        Console.WriteLine("4. Logga ut  ");
+                        Console.WriteLine("5. Stäng ner programmet");
                         Console.WriteLine();
 
 
@@ -89,18 +90,15 @@ namespace Individuellt_Projekt
                         switch (mainAccount)
 
                         {
-
-
                             case 1:
-
-                                Console.WriteLine("Saldo på lönekonto:");
+                                Console.Write("Saldo på lönekonto: ");
                                 Console.WriteLine(accounts[0]);
-                                Console.WriteLine("Saldo på sparkonto: ");
+                                Console.Write("Saldo på sparkonto: ");
                                 Console.WriteLine(accounts[1]);
-                                Console.WriteLine("Saldo på semesterkonto: ");
+                                Console.Write("Saldo på semesterkonto: ");
                                 Console.WriteLine(accounts[2]);
                                 Console.WriteLine("");
-                                Console.WriteLine("Tryck på enter för att återgå till huvudmenyn");
+                                Console.WriteLine("\nTryck enter för att återgå till huvudmenyn");
                                 break;
 
                             case 2:
@@ -130,6 +128,7 @@ namespace Individuellt_Projekt
                                 break;
 
                             case 3:
+
                                 Console.WriteLine("Ta ut pengar");
                                 accounts[0] = accounts[0] - 1 - 10000;
                                 accounts[1] = accounts[1] + 1 - 10000;
@@ -138,19 +137,19 @@ namespace Individuellt_Projekt
                                 Console.WriteLine("Skriv hur mycket du skulle vilja ta ut:");
                                 string accounts1 = Console.ReadLine();
                                 Console.WriteLine("");
-                                Console.WriteLine(" Tryck på enter för att återgå till huvudmenyn");
+                                Console.WriteLine("\nTryck enter för att återgå till huvudmenyn");
                                 break;
 
                             case 4:
                                 Console.WriteLine("Loggar ut! Välkommen åter");
-                                
-                                break;
-
-                            default:
-                                Console.WriteLine("Ogiltig svar, försök igen");
                                 since = false;
+                                break;
+               
+                           default:
+                                Console.WriteLine("Ogiltig svar, försök igen");
+                                break;
                                 continue;
-
+                                 
                         }
                         Console.WriteLine();
                         Console.ReadKey();
@@ -167,7 +166,10 @@ namespace Individuellt_Projekt
             }
         }
 
-        
+        private static void TransferMoney(int fromUserAccount, int toUserAccount, decimal transferAmount, double[] accounts)
+        {
+            throw new NotImplementedException();
+        }
 
         static double[] getaccount(string userName)
         {
